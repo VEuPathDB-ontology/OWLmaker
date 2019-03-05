@@ -1,0 +1,17 @@
+path	/path/to/file/
+	
+input file	my_data.csv
+output file	my_data.owl
+ontology IRI	http://example.com/my_data.owl
+IRI base	http://example.com 
+prefix	PREFIX
+start ID	1
+external ontology file	
+	
+term position	2
+term IRI position	1
+term parent position	10
+term parent IRI position	11
+annotation property	myAnnotation|PREFIX_0000001
+annotation property	definition|IAO_0000115
+annotation property	alternative term|IAO_0000118
