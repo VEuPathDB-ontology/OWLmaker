@@ -1,6 +1,6 @@
-# OWLconverter
+# OWLmaker
 ### Convert tab delimited or csv file to OWL format file
-## Run OWLconverter.jar
+## Run OWLmaker.jar
 #### Requirement:
 Java 1.7 and up
 #### Command:
@@ -8,7 +8,7 @@ java -jar file_path/OWLconverter.jar -settingFilename file_path/setting_filename
 ## Test files
 Under test directory
 #### Example:
-java -jar OWLconverter.jar -settingFilename test/setting.txt 
+java -jar OWLmaker.jar -settingFilename test/setting.txt 
 (path to "test" directory must be set in setting.txt)
 ## Preparation of Setting File
 The setting.txt file is tab-delimited and contains two columns, which specify the information needed to convert a tab-delimited or CSV file to OWL. The first column contains parameters (these should not be renamed) whose values can be added to the second column as follows:
