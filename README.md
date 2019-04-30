@@ -4,7 +4,7 @@
 #### Requirement:
 Java 1.7 and up
 #### Command:
-java -jar file_path/OWLconverter.jar -settingFilename file_path/setting_filename 
+java -jar file_path/OWLmaker.jar -settingFilename file_path/setting_filename 
 ## Test files
 Under test directory
 #### Example:
