@@ -1,17 +1,16 @@
-path	/path/to/file/
+path	/Users/jjudkins/Documents/GitHub/OWL-converter/test
 	
-input file	my_data.csv
-output file	my_data.owl
-ontology IRI	http://example.com/my_data.owl
-IRI base	http://example.com 
-prefix	PREFIX
-start ID	1
-external ontology file	
+input file	new_terms.txt
+output file	big_ontology.owl
+ontology IRI	http://example.com/big_ontology.owl
+IRI base	http://example.com/
+prefix	DETO
+start ID	10001
+external ontology file	https://github.com/EuPath-ontology/OWLmaker/tree/master/test/small_ontology.owl
 	
 term position	2
 term IRI position	1
-term parent position	10
-term parent IRI position	11
-annotation property	myAnnotation|PREFIX_0000001
+term parent position	3
+term parent IRI position	4
 annotation property	definition|IAO_0000115
-annotation property	alternative term|IAO_0000118
+annotation property	definition source|IAO_0000119
