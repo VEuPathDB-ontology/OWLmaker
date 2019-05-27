@@ -1,4 +1,4 @@
-path	/Users/jjudkins/Documents/GitHub/OWL-converter/test
+path	/path/to/input/file/
 	
 input file	new_terms.txt
 output file	big_ontology.owl
@@ -6,7 +6,7 @@ ontology IRI	http://example.com/big_ontology.owl
 IRI base	http://example.com/
 prefix	DETO
 start ID	10001
-external ontology file	https://github.com/EuPath-ontology/OWLmaker/tree/master/test/small_ontology.owl
+external ontology file	https://raw.githubusercontent.com/EuPath-ontology/OWLmaker/master/test/small_ontology.owl
 	
 term position	2
 term IRI position	1
