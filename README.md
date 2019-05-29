@@ -18,7 +18,7 @@ Full path to the location of file to be converted (the output file will also be 
 #### input file (required):
 Name of file to be converted
 #### output file (required):
-name of output OWL file
+name of output OWL file (warning: will overwrite if file with this name already exists)
 #### ontology IRI (required):
 IRI to attribute to OWL file
 #### IRI base (required):
