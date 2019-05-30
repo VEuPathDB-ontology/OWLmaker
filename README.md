@@ -26,7 +26,7 @@ xml:base URI of the ontology
 #### prefix (required)
 IRI prefix for newly generated ontology terms
 #### start ID (required)
-Starting ID number for new ontology terms
+Starting ID number for new ontology terms (7-digit limit. IDs with fewer digits will be left-padded with 0s.)
 #### external ontology file (optional)
 External ontology used to find the ontology term IRI based on labels
 #### term position (required)
