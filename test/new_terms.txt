@@ -1,4 +1,4 @@
-IRI	Label	parent	parentIRI	definition	definition source
+IRI	Label	parentLabel	parentIRI	definition	definition source
 	presence of Ancylostomatoidea by qPCR	categorical measurement datum	http://purl.obolibrary.org/obo/OBI_0000938	a categorical measurement datum that specifies whether Ancylostomatoidea was detected by a real time polymerase chain reaction assay	EuPathDB
 	presence of Ancylostoma duodenale by qPCR	categorical measurement datum	http://purl.obolibrary.org/obo/OBI_0000938	a categorical measurement datum that specifies whether Ancylostoma duodenale was detected by a real time polymerase chain reaction assay	EuPathDB
 	presence of Ascaris lumbricoides by qPCR	categorical measurement datum	http://purl.obolibrary.org/obo/OBI_0000938	a categorical measurement datum that specifies whether Ascaris lumbricoides was detected by a real time polymerase chain reaction assay	EuPathDB

@@ -8,9 +8,9 @@ prefix	EX
 start ID	10001
 external ontology file	https://raw.githubusercontent.com/EuPath-ontology/OWLmaker/master/test/small_ontology.owl
 	
-term position	2
-term IRI position	1
-term parent position	3
-term parent IRI position	4
+label position	2
+IRI position	1
+parent label position	3
+parent IRI position	4
 annotation property	definition|IAO_0000115
 annotation property	definition source|IAO_0000119
