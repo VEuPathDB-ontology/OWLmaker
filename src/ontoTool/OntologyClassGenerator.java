@@ -50,6 +50,11 @@ import owlUtil.OntologyManipulator;
  */
 
 public class OntologyClassGenerator {
+	public static final String CNAME_IRI = "iri";
+	public static final String CNAME_LABEL = "label";
+	public static final String CNAME_PARENT_IRI = "parentiri";
+	public static final String CNAME_PARENT_LABEL = "parentlabel";
+			
 	public static void main(String[] args) {
 		OntologyClassGeneratorOptions bean = new OntologyClassGeneratorOptions();
 	    CmdLineParser parser = new CmdLineParser(bean);
@@ -73,25 +78,28 @@ public class OntologyClassGenerator {
 		
 		// path of input file
 		String path = config.getPath();
+		
 		// tab-delimited file for conversion
 		String inputFilename = config.getInputFilename();
+		
 		// ontology IRI of converted OWL file
 		String ontoIRIstr = config.getOntologyIRIstr();
+		
 		// output converted OWL file name
 		String outputFilename = config.getOutputFilename();
+		
 		// base URL of new term IRIs
 		String idBase = config.getIdBase();
+		
 		// prefix for new term ID
 		String prefix = config.getPrefix();
+		
 		// start ID number
 		int startNum = config.getStartNum();
-		// index for term label, term IRI, term parent label or IRI in the tab-delimited file
-		int iriPos = config.getIriPos();
-		int labelPos = config.getLabelPos();
-		int parentIriPos = config.getParentIriPos();
-		int parentPos = config.getParentPos();
+		
 		// external ontology as reference of existing ontology class and annotation property
 		String externalOntologyFilename = config.getExternalOntologyFilename();
+		
 		// labels/IRI of annotation properties that will be used in conversion
 		ArrayList<String> annotLabels = config.getAnnotLabels();
 	
@@ -169,27 +177,37 @@ public class OntologyClassGenerator {
 
 		//annotation Property IRI and its index in the input file  
 		Hashtable<Integer, String> annotProps = new Hashtable<Integer, String>(); 				
-
-        // Find annotation property index from header of input file, any column name is not specified as
+		
+		// index for term label, term IRI, term parent label or IRI in the tab-delimited file
+		int iriPos = -1;
+		int labelPos = -1;
+		int parentIriPos = -1;
+		int parentPos = -1;
+		
+        // Find term and its parent IRI and label position, and annotation property index from header of input file, any column name is not specified as
         // annotation property in the setting file will be skipped
         String[] items = matrix.get(0);
-
-        for (int k = 0; k< items.length; k++) {
-        	String item = items[k].trim();
         
-        	if (item != null && !item.isEmpty() && labelIriObjects.containsKey(item.toLowerCase())) {
-         		annotProps.put(new Integer(k), labelIriObjects.get(item.toLowerCase()));
-         	}
+        for (int k = 0; k< items.length; k++) {
+        	String item = items[k];
+        	
+        	if (item != null && !item.isEmpty()) {
+        		if (item.toLowerCase().equals(CNAME_IRI))					iriPos = k;
+        		else if (item.toLowerCase().equals(CNAME_LABEL))			labelPos = k;
+        		else if (item.toLowerCase().equals(CNAME_PARENT_IRI))		parentIriPos = k;
+        		else if (item.toLowerCase().equals(CNAME_PARENT_LABEL))		parentPos = k;
+        		else if (labelIriObjects.containsKey(item.toLowerCase()))	annotProps.put(new Integer(k), labelIriObjects.get(item.toLowerCase()));
+        	}
 		}
         
         // create classes
 	   	for (int i = 1; i < matrix.size(); i++) {
 	   		items = matrix.get(i);
 
-	   		String termLabel = "";
-	   		String termIRIstr = "";
-	   		String parentLabel = "";
-	   		String parentIRIstr = "";
+	   		String termLabel 	= "";
+	   		String termIRIstr 	= "";
+	   		String parentLabel 	= "";
+	   		String parentIRIstr	= "";
 	   		
 	   		// -- get term label and IRIstr --
 	   		// Term label must be provided in the input file
@@ -422,6 +440,8 @@ public class OntologyClassGenerator {
 	
 	public static String cleanString (String s) {
 		s = s.trim().replaceAll("^\"|\"$", "");	
+		
+		if (s.toUpperCase().equals("NA"))	s = "";
 
 		return s;
 	}

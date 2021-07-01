@@ -21,11 +21,6 @@ public class OntologyClassGeneratorConfiguration {
 	private String idBase = "http://purl.obolibrary.org/obo/";	// base URL of new term IRIs
 	private String prefix = "";		// prefix for new term ID
 	private int startNum = 1;		// start ID number	
-	// index for term label, term IRI, term parent label or IRI in the tab-delimited file
-	private int iriPos = -1;
-	private int labelPos = -1;
-	private int parentIriPos = -1;
-	private int parentPos = -1;
 	private String externalOntologyFilename = "";
 	private ArrayList<String> annotLabels;
 	
@@ -40,10 +35,6 @@ public class OntologyClassGeneratorConfiguration {
 		this.idBase = "http://purl.obolibrary.org/obo/";
 		this.prefix = "";	
 		this.startNum = 1;	
-		this.iriPos = -1;
-		this.labelPos = -1;
-		this.parentIriPos = -1;
-		this.parentPos = -1;
 		this.externalOntologyFilename = "";
 		this.annotLabels = new ArrayList<String>();
 	}
@@ -86,18 +77,6 @@ public class OntologyClassGeneratorConfiguration {
 								break;								
 							case "start ID":
 								setStartNum(Integer.parseInt(value));
-								break;	
-							case "term position":
-								setLabelPos(Integer.parseInt(value)-1);
-								break;	
-							case "term IRI position":
-								setIriPos(Integer.parseInt(value)-1);
-								break;	
-							case "term parent position":
-								setParentPos(Integer.parseInt(value)-1);
-								break;	
-							case "term parent IRI position":
-								setParentIriPos(Integer.parseInt(value)-1);
 								break;
 							case "external ontology file":	
 								setExternalOntologyFilename(value);
@@ -154,22 +133,6 @@ public class OntologyClassGeneratorConfiguration {
 		return this.startNum;
 	}
 	
-	public int getIriPos () {
-		return this.iriPos;
-	}
-	
-	public int getLabelPos () {
-		return this.labelPos;
-	}
-	
-	public int getParentIriPos () {
-		return this.parentIriPos;
-	}
-	
-	public int getParentPos () {
-		return this.parentPos;
-	}
-	
 	public String getExternalOntologyFilename () {
 		return this.externalOntologyFilename;
 	}
@@ -206,23 +169,7 @@ public class OntologyClassGeneratorConfiguration {
 		this.startNum = startNum;
 	}
 	
-	public void setIriPos (int iriPos) {
-		this.iriPos = iriPos;
-	}
-	
-	public void setLabelPos (int labelPos) {
-		this.labelPos = labelPos;
-	}
-	
-	public void setParentIriPos (int parentIriPos) {
-		this.parentIriPos = parentIriPos;
-	}
-	
 	public void setExternalOntologyFilename (String externalOntologyFilename) {
 		this.externalOntologyFilename = externalOntologyFilename;
-	}
-	
-	public void setParentPos (int parentPos) {
-		this.parentPos = parentPos;
 	}
 }
