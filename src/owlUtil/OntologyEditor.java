@@ -12,24 +12,54 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.OWLEntityRenamer;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 public class OntologyEditor {
+	// add an instance, specify its class type and add label annotation if available
+	public static void addInstance(OWLOntologyManager manager, OWLOntology ontology, String instanceIRIstr, String classIRIstr, String instanceLabel) {
+ 		// Create factory to obtain a reference to a class
+        OWLDataFactory df = manager.getOWLDataFactory();
 
-	public static void cleanEmptyAnnotationFields() {
+        // Create instance
+		OWLNamedIndividual ins = df.getOWLNamedIndividual(IRI.create(instanceIRIstr));
 		
-	}
-
-	public static void addAnnotations(OWLOntologyManager manager, OWLOntology ontology, String annotPropIRI, HashMap<String, String> annotationList) {
-		
+		// Add asserted class type
+        OWLClass cls = df.getOWLClass(IRI.create(classIRIstr));
+        OWLClassAssertionAxiom classTypeAxiom = df.getOWLClassAssertionAxiom(cls, ins);
+        manager.applyChange(new AddAxiom(ontology, classTypeAxiom));
+        
+        // Add label if it is not null
+        if (instanceLabel.length() > 0 ) {
+    		OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
+    		OWLAnnotation labelAnnot = df.getOWLAnnotation(labelProp, df.getOWLLiteral(instanceLabel));
+    		OWLAxiom labelAxiom = df.getOWLAnnotationAssertionAxiom(IRI.create(instanceIRIstr), labelAnnot);
+    		manager.applyChange(new AddAxiom(ontology, labelAxiom));
+        }
 	}
 	
+	// add relation between two instances
+	public static void addRelation (OWLOntologyManager manager, OWLOntology ontology, String subjectIRIstr, String objectIRIstr, String objectPropIRIstr) {
+ 		// Create factory to obtain a reference to a class
+        OWLDataFactory df = manager.getOWLDataFactory();
+		OWLNamedIndividual subject = df.getOWLNamedIndividual(IRI.create(subjectIRIstr));
+		OWLNamedIndividual object = df.getOWLNamedIndividual(IRI.create(objectIRIstr));
+		OWLObjectProperty predicate = df.getOWLObjectProperty(IRI.create(objectPropIRIstr));
+		OWLObjectPropertyAssertionAxiom propAssertion = df.getOWLObjectPropertyAssertionAxiom(predicate, subject, object);
+		manager.applyChange(new AddAxiom(ontology,propAssertion));
+	}
+
+	// update annotation properties
 	public static void updateAnnotations(OWLOntologyManager manager, OWLOntology ontology, String annotPropIRI, HashMap<String, String> annotationList) {
  		// Create factory to obtain a reference to a class
         OWLDataFactory df = manager.getOWLDataFactory();
@@ -61,32 +91,6 @@ public class OntologyEditor {
 	   	    	System.out.println(entityIRIstr + " is not in the given ontology");
 	   	    }
 	   	}
-
-	   	
-		// go through each class in the ontology, if they are in the list for editing,
-	   	// remove any associate annotation property value(s) of the class if there are any 
-	   	// and add new annotation values to the class
-	   	/*
-	   	for (OWLClass cls : ontology.getClassesInSignature()) {	    	
-	     	String termIRIstr = cls.getIRI().toString();
-
-        	if (annotationList.containsKey(termIRIstr)) {
-        		// remove specified annotation property if it has been defined
-        		Collection<OWLAnnotation> owlAnnots = EntitySearcher.getAnnotations(cls, ontology, annotProp);
-        		
-        		if(!owlAnnots.isEmpty()) {
-        			for (OWLAnnotation owlAnnot : owlAnnots) {
-        				OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(cls.getIRI(), owlAnnot);
-        				manager.applyChange(new RemoveAxiom(ontology, ax));
-        			}
-        		}
-        		
-            	OWLAnnotation newAnnot = df.getOWLAnnotation(annotProp, df.getOWLLiteral(annotationList.get(termIRIstr)));
-            	OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(cls.getIRI(), newAnnot);
-            	manager.applyChange(new AddAxiom(ontology, ax));
-        	} 
-        }
-        */
 	}
 	
 	// update IRIs based on mapping file

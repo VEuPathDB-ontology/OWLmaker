@@ -2,7 +2,6 @@ package owlUtil;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLOntologyMerger;
-import com.google.common.base.Optional;
 
 import java.io.File;
 import java.util.Set;
@@ -142,34 +141,5 @@ public class OntologyManipulator {
         }
 		
 		return mergedOnt; 
-	}
-	
-	public static OWLOntology mergeToTargetOnt (OWLOntologyManager manager, OWLOntology targetOnt, OWLOntology ont) {
-		Set<OWLAxiom> axs = ont.getAxioms();
-		for(OWLAxiom ax : axs) {
-	    	if (!targetOnt.containsAxiom(ax)) {
-	        	manager.applyChange(new AddAxiom(targetOnt, ax));
-	        }
-	    }
-		
-		Optional<IRI> targetOntIRI = targetOnt.getOntologyID().getOntologyIRI();
-		Optional<IRI> ontIRI = ont.getOntologyID().getOntologyIRI();
-		
-		System.out.println("All axioms in ontology " + ontIRI.toString() + " have been merged to the ontology " + targetOntIRI.toString());
-		
-		return targetOnt;
-	}
-	
-	public static OWLOntology setOntologyID (OWLOntologyManager manager, OWLOntology ont, String newIRIstr) {
-		String oldIRIstr = ont.getOntologyID().getOntologyIRI().toString();
-		
-		if (newIRIstr.equals(oldIRIstr)) {
-			System.out.println("The new IRI: " + newIRIstr + " is same to the original one.");
-		} else {
-			SetOntologyID setOntoID =new SetOntologyID(ont,IRI.create(newIRIstr));
-			manager.applyChange(setOntoID);
-		}
-		
-		return ont;
 	}
 }

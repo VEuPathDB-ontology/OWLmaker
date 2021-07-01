@@ -9,8 +9,10 @@ import org.kohsuke.args4j.Option;
  */
 public class OntologyClassGeneratorOptions {
     @Option(name="-settingFilename", usage ="the configuration used to set all variables required for the OWL conversion", required = false)
-    private String settingFilename = "./test/setting.txt";
-     
+    private String settingFilename = "/Users/jiezheng/Documents/VEuPathDB-git/ApiCommonData/Load/ontology/script/test-local/setting_test.txt";
+    
+    //private String settingFilename = "/Users/jiezheng/Documents/ontology/DTO/proteoCommons/class/setting.txt";
+ 
     public String getSettingFilename () {
     	return this.settingFilename;
     }
